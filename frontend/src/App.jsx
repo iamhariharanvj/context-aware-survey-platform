@@ -1,39 +1,21 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import Axios from 'axios'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CreateSurvey from './pages/CreateSurvey'
+import AnswerSurvey from './pages/AnswerSurvey'
 
-function App() {
+const App = () => {
 
-  var [location, setLocation] = useState("");
-
-  useEffect(()=>{
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position)=> {
-        var latitude = position.coords.latitude
-        var longitude = position.coords.longitude
-
-        Axios.post('http://localhost:5000/getPlaces',{"longitude": longitude, "latitude": latitude})
-        .then(response => {
-          setLocation(response.data)
-          return response.data;
-        })
-        .catch(err => {
-          return err.message;
-        })
-
-      });
-
-  
-    }
-
-
-  }, [])
-  
   
   return (
-    <div className="App"> 
-      <h1> LOCATION: {location}</h1>
-    </div>
+    <BrowserRouter>
+        
+       
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='/survey/create' element={<CreateSurvey />} />
+        <Route path="/survey/answer/:id" element={<AnswerSurvey />} />
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 
