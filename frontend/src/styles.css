@@ -1,0 +1,42 @@
+
+/* CSS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #4b0082; /* Aesthetic Violet */
+  font-family: 'Roboto', sans-serif;
+}
+
+.title {
+  font-size: 3rem;
+  color: #800080; /* Purple */
+  margin-bottom: 2rem;
+}
+
+.contact-options {
+  display: flex;
+  justify-content: center;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.option i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.option p {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
