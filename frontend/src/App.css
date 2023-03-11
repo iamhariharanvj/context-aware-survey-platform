@@ -1,0 +1,73 @@
+ .App {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  nav {
+    background-color: #222;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 1.5rem;
+  }
+  
+  .signup-container {
+    margin: auto;
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 2rem;
+  }
+  
+  .signup-container h1 {
+    margin-bottom: 2rem;
+  }
+  
+  label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  button.google-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.google-btn:hover {
+    background-color: #ddd;
+  }
+  
