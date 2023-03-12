@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 4rem;
+  }
+  
+.container{
+    text-align: center;
+}
+.goals {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+  
+  .btn-start {
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 0.3rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  
+  textarea{
+    height: 50vh;
+    font-size: 1.5rem;
+  }
+
+  .btn-start:hover {
+    background-color: #005fa3;
+  }
+
+  #questions input{
+    margin: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .goals {
+      width: 100%;
+      padding: 2rem;
+    }
+  
+    .goals h1{
+        font-size: 2rem;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 1rem;
+    }
+  }
+  

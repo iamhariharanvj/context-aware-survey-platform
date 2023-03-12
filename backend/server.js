@@ -5,7 +5,7 @@ import { Configuration, OpenAIApi } from 'openai';
 import fetch from 'node-fetch';
 import cors from 'cors';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection,doc,getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { getFirestore, collection,doc,getDoc,getDocs, setDoc, addDoc,where,query } from 'firebase/firestore';
 
 
 
@@ -113,6 +113,29 @@ app.post('/survey/create', async (req, res) => {
   }
 });
 
+app.post('/survey/response', async (req, res) => {
+    try {
+      const surveyId = req.body.surveyId;
+      
+      const surveyRef = await addDoc(collection(db, 'responses'), {
+        surveyId,
+        answers: req.body.answers,
+        questions: req.body.questions,
+        context: req.body.context
+      });
+  
+      res.status(201).json({
+        responseId: surveyRef.id
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        error: 'Something went wrong'
+      });
+    }
+  });
+  
+
 app.get('/surveys/:id', async (req, res) => {
     try {
       const { id } = req.params;
@@ -131,6 +154,34 @@ app.get('/surveys/:id', async (req, res) => {
     }
   });
   
+  app.get("/responses/:surveyId", async (req, res) => {
+    try {
+      const surveyId = req.params.surveyId;
+  
+      // Create a reference to the "responses" collection
+      const responsesRef = collection(db, "responses");
+  
+      // Create a query to fetch all documents with the specified survey ID
+      const q = query(responsesRef, where("surveyId", "==", surveyId));
+  
+      // Fetch all documents that match the query
+      const querySnapshot = await getDocs(q);
+  
+      // Map over the documents and create an array of objects containing the document ID and data
+      const documents = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          data: doc.data()
+        };
+      });
+  
+      res.send(documents);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error fetching responses");
+    }
+  });
+
 const PORT = process.env.PORT || 5000;
 
 

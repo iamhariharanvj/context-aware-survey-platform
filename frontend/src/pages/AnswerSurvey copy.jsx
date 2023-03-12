@@ -1,7 +1,6 @@
-import {Link, Navigate, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import Axios from 'axios'
-import './styles/AnswerSurvey.css'
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
@@ -23,13 +22,13 @@ var answers = []
 const AnswerSurvey = () => {
   let {id} = useParams();
   const [surveyExists, setSurveyExists] = useState(false);
-  const [red,setRed] = useState(false);
+  const [redirect,setRedirect] = useState(false);
   const [goals, setGoals] = useState("");
   const [sampleQuestions, setSampleQuestions] = useState("")
   useEffect(() => {
     Axios.get(`http://localhost:5000/surveys/${id}`).then((response) => {
       setSurveyExists(response.data.exists);
-      setRed(!response.data.exists);
+      setRedirect(!response.data.exists);
       if(response.data.exists){
         setGoals(response.data.goals)
         setSampleQuestions(response.data.questions.toString())
@@ -40,7 +39,7 @@ const AnswerSurvey = () => {
 
     return ( 
     <div>
-        {red?console.log("REDIRECTING"):null}
+        {redirect?console.log("REDIRECTING"):null}
         {surveyExists ? <AnswerSurveyBody goals={goals} questions={sampleQuestions} /> : null}
     </div>
   )
@@ -57,15 +56,13 @@ const AnswerSurveyBody = (props) => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
-  var onlyContext = "";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
   const [instaId, setInstaId] = useState("");
   const [githubId, setGithubId] = useState("");
   const [count, setCount] = useState(8);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(()=>{
     if (navigator.geolocation) {
@@ -95,9 +92,6 @@ const AnswerSurveyBody = (props) => {
       setName(displayName)
       setEmail(email)
       console.log("Logged in user:", displayName, email, photoURL);
-      await getNextQuestion();
-      setIsLoggedIn(true);
-
     } catch (error) {
       console.error(error);
 
@@ -106,7 +100,7 @@ const AnswerSurveyBody = (props) => {
 
   const [ques,setQuest] = useState("")
   const [ans,setAns] = useState("")
-  let {id} = useParams();
+
 
   const [context, setContext] = useState("");
   
@@ -140,30 +134,11 @@ const AnswerSurveyBody = (props) => {
 
     }
     else{
-        qna += `Question: ${ques} Answer: ${ans}`
-        questions.push(ques)
-        answers.push(ans)
+        setQuest("Thank you for attending the survey")
         console.log(questions)
         console.log(answers)
-
-        
-    Axios.post('http://localhost:5000/survey/response', {
-        "questions": questions,
-        "answers": answers,
-        "context": onlyContext,
-        "surveyId": id,
-    })
-    .then(response => response.data)
-    .then(data => {
-    
-        console.log('success');
-        window.location.href = "/survey/answer/success"
-    
-    })
-    .catch(err => alert(err))
     }
 }
-
 
   const getContext = async () => {
     if (githubId.length<2){
@@ -173,7 +148,7 @@ const AnswerSurveyBody = (props) => {
         setInstaId("Null")
     }
     
-    onlyContext = `Name: ${name}\nCurrent Location: ${location}\nCurrent Time: ${time.toLocaleString()}}\n` + context;
+    var onlyContext = `Name: ${name}\nCurrent Location: ${location}\nCurrent Time: ${time.toLocaleString()}}\n` + context;
     setContext(context + "Previously asked questions and users responses" + qna)
 
     if(context.length >2){
@@ -199,24 +174,18 @@ const AnswerSurveyBody = (props) => {
 
   return (
     <div>
-        {!isLoggedIn?
-        <div className="form-container">
-            <input className="input-field" value={instaId} onChange={(e) => setInstaId(e.target.value)} placeholder="Enter your Instagram ID (Optional)" />
-            <br />
-            <input className="input-field" value={githubId} onChange={(e) => setGithubId(e.target.value)} placeholder="Enter your GitHub ID (Optional)" />
-            <br />
-            <button className="sign-in-btn" onClick={handleSignIn}>Sign in with Google</button>
-        </div>
-        :
-        <div className="question-container">
-            <h1 className="question-title">Question: {ques}</h1>
-            <input type="text" value={ans} placeholder="Enter your answer" onChange={(e)=>setAns(e.target.value)} className="answer-input" />
-            <button onClick={()=>getNextQuestion()} className="next-btn">Next Question</button>
-        </div>
-        }
+        <input value={instaId} onChange={(e)=>setInstaId(e.target.value)} placeholder="Enter your instagram id" />
+        <br />
+        <input value={githubId} onChange={(e)=>setGithubId(e.target.value)} placeholder="Enter your github id" />
+        <br />
+        <button onClick={handleSignIn}>Sign in with Google</button>
+        <br></br>
+        {ques}
+        <input type="text" value={ans} placeholder="Enter your answer" onChange={(e)=>setAns(e.target.value)} />
+        <button onClick={()=>getNextQuestion()}>Get Next</button>
+        
+     
     </div>
-    
-
   );
 };
 

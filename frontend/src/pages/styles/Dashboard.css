@@ -1,0 +1,61 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: #eee;
+  }
+
+  .question{
+    color: blue;
+  }
+  
+  ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    margin: 0 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  li.active {
+    background-color: #ddd;
+    border-bottom: 2px solid #aaa;
+  }
+  
+  li:hover {
+    background-color: #ddd;
+  }
+  
+  ResponsesSection,
+  AnalyticsSection,
+  EditingSection {
+    height: calc(100% - 50px);
+    padding: 20px;
+    box-sizing: border-box;
+    display: none;
+  }
+  
+  ResponsesSection.active,
+  AnalyticsSection.active,
+  EditingSection.active {
+    display: block;
+  }
+
+  .editingcontainer {
+    text-align: left;
+    padding: 4rem;
+  }
+  
