@@ -8,7 +8,7 @@ const Editing = (props) => {
 
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/surveys/${props.surveyId}`)
+        Axios.get(`https://context-aware-survey-platform.onrender.com/surveys/${props.surveyId}`)
         .then(response => response.data)
         .then(data => {
             setGoals(data.goals);
@@ -32,7 +32,7 @@ const Editing = (props) => {
         
         const updatedQues = getQuestionsText();
 
-        Axios.put(`http://localhost:5000/survey/edit/${props.surveyId}`, {
+        Axios.put(`https://context-aware-survey-platform.onrender.com/survey/edit/${props.surveyId}`, {
             "goals": goals,
             "questions": updatedQues
         })
