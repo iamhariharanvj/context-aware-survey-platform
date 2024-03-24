@@ -95,12 +95,12 @@ const AnswerSurveyBody = (props) => {
       setEmail(email)
       console.log("Logged in user:", displayName, email, photoURL);
       await getNextQuestion();
-      setIsLoggedIn(true);
 
     } catch (error) {
       console.log("ERROR: "+error);
-
     }
+    setIsLoggedIn(true);
+
   };
 
   const [ques,setQuest] = useState("")
