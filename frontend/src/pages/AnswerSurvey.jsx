@@ -98,7 +98,7 @@ const AnswerSurveyBody = (props) => {
       setIsLoggedIn(true);
 
     } catch (error) {
-      console.error(error);
+      console.log("ERROR: "+error);
 
     }
   };
@@ -113,7 +113,12 @@ const AnswerSurveyBody = (props) => {
   const getNextQuestion = async()=>{
 
     if(count!=10){
-    
+    await Axios.get(`http://localhost:4000/translate?text=${ans}`)
+    .then(response => response.data)
+    .then(data =>{
+        console.log(data);
+        
+    })
     qna += `Question: ${ques} Answer: ${ans}`
     questions.push(ques)
     answers.push(ans)
