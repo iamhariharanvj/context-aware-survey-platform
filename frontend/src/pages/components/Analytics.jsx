@@ -40,7 +40,7 @@ const Analytics = (props) => {
         {personas.split('\n').map(item=> <p>{item}</p>)}
         <input type="text" value={perQuery} onChange={(e)=>setPerQuery(e.target.value)} placeholder="Enter a query"/>    
         <button onClick={()=>getPredictedAnswers(perQuery, personas)}>Ask</button>
-        {ans}
+        {ans.split('\n').map(item=> <p>{item}</p>)}
     </div>
     
   )

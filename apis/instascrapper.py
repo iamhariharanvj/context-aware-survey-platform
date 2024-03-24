@@ -4,11 +4,20 @@ import requests
 import openai
 from bs4 import BeautifulSoup
 from flask_cors import CORS
+from googletrans import Translator
 
 app = Flask(__name__)
-openai.api_key = "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"                                         # OPEN-AI API KEY
+openai.api_key = "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"                                         # OPEN-AI API KEY
 completion = openai.Completion()
 cors = CORS(app)
+
+@app.route('/translate', methods=['GET', 'POST'])
+def translate():
+    translator = Translator()
+    text = request.args.get('text')
+    translated_text = translator.translate(text, dest='en')
+    return translated_text.text
+
 
 @app.route('/get_content', methods=['GET'])
 def get_content():

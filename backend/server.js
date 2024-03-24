@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import fetch from 'node-fetch';
 import cors from 'cors';
 import { initializeApp } from 'firebase/app';
@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 dotenv.config();
 app.use(cors());
 
+const openai = new OpenAI();
 
 const firebaseConfig = {
     apiKey: "AIzaSyDgo6qlVwJX5TIubmUuIaKBOzOr4n5o3WU",
@@ -51,31 +52,21 @@ app.post('/getPlaces', (req, res) => {
 
     })
 
-app.post('/gpt', async (req, res) => {
-    
-      
-    const configuration = new Configuration({
-        apiKey: process.env.OPENAI_API_KEY,
-      
-      });
-    const openai = new OpenAIApi(configuration)
-    
-    const query = req.body.query;
-
-    try{
-    const completion = await openai.createCompletion({
-        model:'text-davinci-003',
-        prompt: query,
-        max_tokens: 1000,
-      })
-        console.log(completion);
-        return res.send(completion.data.choices[0].text);
-    }
-    catch(err){
-        console.log('Internal Server Error');
-        return res.send(err);    
-    }
-})
+    app.post('/gpt', async (req, res) => {
+      const query = req.body.query;
+      console.log(query);
+  
+      try {
+          const completion = await openai.chat.completions.create({
+              model: 'gpt-3.5-turbo',
+              messages: [{role: "system", content: query}],
+          });
+          return res.send(completion.choices[0].message.content);
+      } catch (err) {
+          console.log('Internal Server Error: ' + err);
+          return res.status(500).send('Internal Server Error: ' + err);
+      }
+  });
 
 app.put('/survey/edit/:id', async (req, res) => {
     try {

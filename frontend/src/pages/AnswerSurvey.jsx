@@ -63,8 +63,7 @@ const AnswerSurveyBody = (props) => {
   const [location, setLocation] = useState("");
   const [instaId, setInstaId] = useState("");
   const [githubId, setGithubId] = useState("");
-  const [count, setCount] = useState(8);
-
+  const [count, setCount] = useState(1);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(()=>{
@@ -113,8 +112,13 @@ const AnswerSurveyBody = (props) => {
 
   const getNextQuestion = async()=>{
 
-    if(count!=10){
-    
+    if(count!=5){
+    await Axios.get(`http://localhost:4000/translate?text=${ans}`)
+    .then(response => response.data)
+    .then(data =>{
+        console.log(data);
+        
+    })
     qna += `Question: ${ques} Answer: ${ans}`
     questions.push(ques)
     answers.push(ans)
@@ -125,8 +129,8 @@ const AnswerSurveyBody = (props) => {
     
     
     
-    var query = `Generate a single next unique personalized survey queries to ask based
-     on location, time gender and emotion with the details below\nGoals: \n${props.goals}\n Sample Questions: \n${props.sampleQuestions} \nCurrent Location: ${location}\nCurrent Time: ${time.toLocaleString()}\nName: ${name}}\nOther Demographics:${context}\n\nPrevious Questions and responses:\n${qna}\n\nNew Question related to survey goals:`
+    var query = `Generate a single next personalized survey queries to ask based
+     on previous questions, location, time gender and emotion with the details below\nGoals: \n${props.goals}\n Sample Questions: \n${props.sampleQuestions} \nCurrent Location: ${location}\nCurrent Time: ${time.toLocaleString()}\nName: ${name}}\nOther Demographics:${context}\n\nPrevious Questions and responses:\n${qna}\n\nNew Question related to survey goals:`
     
 
     

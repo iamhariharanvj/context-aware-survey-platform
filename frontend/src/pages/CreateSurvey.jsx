@@ -21,7 +21,7 @@ const CreateSurvey = () => {
 
         Axios.post('http://localhost:5000/survey/create', {"goals":goals, "questions":questionsText})
         .then(response => response.data)
-        .then(data => alert("Your code is "+ data.surveyId))
+        .then(data => alert("Survey Link is  http://localhost:5173/survey/answer/"+ data.surveyId))
         .catch(error => alert("Error: "+ error.message))
     
       }
@@ -36,7 +36,6 @@ const CreateSurvey = () => {
             setQuestions(res)
             setDefined(true)
 
-           
 
         })
         .catch(err => alert(err.message))

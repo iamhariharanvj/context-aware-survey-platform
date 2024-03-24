@@ -36,27 +36,30 @@ const Responses = (props) => {
 
     return (
     <div>
-        <button onClick={()=>{
-            if (key-1 < 0) {
-            setKey((key+length) -1)
-            }
-            else{
-            setKey(key-1)
-            
-        }}}>Previous</button>
-
-        <p>Response {key+1}/{length}</p>
-
-        <button onClick={()=>{
-            if (key+1 >= length) {
-                setKey((key-length) +1)
-            }
-            else{
-                setKey(key+1)
-
-        }}}>Next</button>
-
-        
+        <br />
+        <div className="tab-view">
+            <button
+                className="tab-view-button"
+                onClick={() => {
+                if (key - 1 < 0) {
+                    setKey(key + length - 1);
+                } else {
+                    setKey(key - 1);
+                }}}>
+                Previous
+            </button>
+            <p className="tab-view-response">Response {key + 1}/{length}</p>
+            <button
+                className="tab-view-button"
+                onClick={() => {
+                if (key + 1 >= length) {
+                    setKey(key - length + 1);
+                } else {
+                    setKey(key + 1);
+                }}}>
+                    Next
+                </button>
+                </div>
         
         <p>User Demographics {demographics.split('\n').map(item=><p>{item}</p>)}</p>
         {responses.map((item)=> <QnA question={item.question} answer={item.answer} />)}

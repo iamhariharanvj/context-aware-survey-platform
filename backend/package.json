@@ -17,6 +17,6 @@
     "firebase": "^9.17.2",
     "firebase-admin": "^11.5.0",
     "node-fetch": "^3.3.0",
-    "openai": "^3.2.1"
+    "openai": "^4.29.2"
   }
 }

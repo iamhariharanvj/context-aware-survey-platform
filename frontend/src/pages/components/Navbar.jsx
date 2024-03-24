@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar__left">
         <Link to="/" className="navbar__logo">
-          Survey Creator
+          Surwayers
         </Link>
       </div>
 
