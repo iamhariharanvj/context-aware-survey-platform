@@ -7,7 +7,7 @@ from flask_cors import CORS
 from googletrans import Translator
 
 app = Flask(__name__)
-openai.api_key = "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"                                         # OPEN-AI API KEY
+openai.api_key = ""                                         # OPEN-AI API KEY
 completion = openai.Completion()
 cors = CORS(app)
 
