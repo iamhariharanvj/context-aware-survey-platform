@@ -9,14 +9,14 @@ const Insights = (props) => {
         console.log(JSON.stringify(surveyText));
         var initText = "Generate the key points categorized and summarized insights or requirements from the below survey data: Survey Data:"
         var queryText = initText + surveyText;
-        await Axios.post('http://localhost:5000/gpt',{"query": queryText})
+        await Axios.post('https://context-aware-survey-platform.onrender.com/gpt',{"query": queryText})
         .then(response =>response.data)
         .then(data => setPersonas(data))
         .catch(error => console.error(error))
     }
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/responses/${props.surveyId}`)
+        Axios.get(`https://context-aware-survey-platform.onrender.com/responses/${props.surveyId}`)
         .then(response => JSON.stringify(response.data))
         .then(data => getPersonas(data))
         .catch(err => console.error(err));

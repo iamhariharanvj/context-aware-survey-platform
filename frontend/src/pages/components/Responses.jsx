@@ -10,7 +10,7 @@ const Responses = (props) => {
     const [length,setLength] = useState(0)
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/responses/${props.surveyId}`)
+        Axios.get(`https://context-aware-survey-platform.onrender.com/responses/${props.surveyId}`)
         .then(response => response.data)
         .then(data => {
             var responseList = []

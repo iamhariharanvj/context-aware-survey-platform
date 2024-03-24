@@ -27,7 +27,7 @@ const AnswerSurvey = () => {
   const [goals, setGoals] = useState("");
   const [sampleQuestions, setSampleQuestions] = useState("")
   useEffect(() => {
-    Axios.get(`http://localhost:5000/surveys/${id}`).then((response) => {
+    Axios.get(`https://context-aware-survey-platform.onrender.com/surveys/${id}`).then((response) => {
       setSurveyExists(response.data.exists);
       setRed(!response.data.exists);
       if(response.data.exists){
@@ -72,7 +72,7 @@ const AnswerSurveyBody = (props) => {
         var latitude = position.coords.latitude
         var longitude = position.coords.longitude
 
-        Axios.post('http://localhost:5000/getPlaces',{"longitude": longitude, "latitude": latitude})
+        Axios.post('https://context-aware-survey-platform.onrender.com/getPlaces',{"longitude": longitude, "latitude": latitude})
         .then(response => {
           setLocation(response.data)
           return response.data;
@@ -135,7 +135,7 @@ const AnswerSurveyBody = (props) => {
 
     
 
-    await Axios.post('http://localhost:5000/gpt', {"query": query})
+    await Axios.post('https://context-aware-survey-platform.onrender.com/gpt', {"query": query})
     .then(response => response.data)
     .then(data => setQuest(data))
     .catch(err => alert(err))
@@ -151,7 +151,7 @@ const AnswerSurveyBody = (props) => {
         console.log(answers)
 
         
-    Axios.post('http://localhost:5000/survey/response', {
+    Axios.post('https://context-aware-survey-platform.onrender.com/survey/response', {
         "questions": questions,
         "answers": answers,
         "context": onlyContext,

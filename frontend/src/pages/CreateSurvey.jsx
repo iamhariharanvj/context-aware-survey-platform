@@ -19,7 +19,7 @@ const CreateSurvey = () => {
             }
         });
 
-        Axios.post('http://localhost:5000/survey/create', {"goals":goals, "questions":questionsText})
+        Axios.post('https://context-aware-survey-platform.onrender.com/survey/create', {"goals":goals, "questions":questionsText})
         .then(response => response.data)
         .then(data => alert("Survey Link is  http://localhost:5173/survey/answer/"+ data.surveyId))
         .catch(error => alert("Error: "+ error.message))
@@ -28,7 +28,7 @@ const CreateSurvey = () => {
 
 
     const getSampleQuestions = async ()=>{
-        await Axios.post('http://localhost:5000/gpt', {"query": "Generate sample survey questions for the following goals: " + goals})
+        await Axios.post('https://context-aware-survey-platform.onrender.com/gpt', {"query": "Generate sample survey questions for the following goals: " + goals})
         .then(response => response.data)
         .then(data => {
             console.log(data)
