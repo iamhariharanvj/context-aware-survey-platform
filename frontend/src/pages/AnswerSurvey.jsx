@@ -112,13 +112,8 @@ const AnswerSurveyBody = (props) => {
 
   const getNextQuestion = async()=>{
 
-    if(count!=5){
-    await Axios.get(`http://localhost:4000/translate?text=${ans}`)
-    .then(response => response.data)
-    .then(data =>{
-        console.log(data);
-        
-    })
+    if(count!=10){
+    
     qna += `Question: ${ques} Answer: ${ans}`
     questions.push(ques)
     answers.push(ans)
