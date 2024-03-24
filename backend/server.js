@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 dotenv.config();
 app.use(cors());
 
-const openai = new OpenAI();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
 
 const firebaseConfig = {
     apiKey: "AIzaSyDgo6qlVwJX5TIubmUuIaKBOzOr4n5o3WU",
