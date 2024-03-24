@@ -21,7 +21,7 @@ const CreateSurvey = () => {
 
         Axios.post('https://context-aware-survey-platform.onrender.com/survey/create', {"goals":goals, "questions":questionsText})
         .then(response => response.data)
-        .then(data => alert("Survey Link is  http://localhost:5173/survey/answer/"+ data.surveyId))
+        .then(data => alert("Survey Link is  https://https://context-aware-survey-platform.vercel.app/survey/answer/"+ data.surveyId))
         .catch(error => alert("Error: "+ error.message))
     
       }
